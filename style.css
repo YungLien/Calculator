@@ -1,0 +1,114 @@
+/* Basic reset for better cross-browser rendering */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* Stack the h1 and calculator vertically */
+    height: 100vh;
+}
+
+/* Center and style the h1 */
+h1 {
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+/* Container for the calculator */
+#container {
+    width: 320px;
+    background-color: #e5989b;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(64, 30, 30, 0.2);
+}
+
+/* Styling for the display */
+#display {
+    margin-bottom: 5px;
+}
+
+#display input {
+    width: 100%;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 1.5rem;
+    text-align: right;
+    background-color: #333;
+    color: #fff;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* General button styling */
+button {
+    width: 70px;
+    height: 70px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    margin: 5px;
+    cursor: pointer;
+    background-color: #b5838d;
+    color: #fff;
+    transition: background-color 0.2s ease;
+}
+
+button:active {
+    background-color: #777;
+}
+
+/* Row styling */
+.row {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Operator buttons styling */
+#btnDivide,
+#btnMultiply,
+#btnSubstract,
+#btnadd {
+    background-color: #fbc4ab;
+}
+
+/* Adjust the width of the Clear and Equal buttons */
+#btnClear {
+    background-color: #d4d4d2;
+    color: #000;
+    width: 150px;
+    /* Same width as the Equal button */
+}
+
+#btnBackspace {
+    background-color: #d4d4d2;
+    color: #000;
+    width: 70px;
+    /* Keep the same width */
+}
+
+#btnEqual {
+    background-color: #d7b9d5;
+    width: 150px;
+    /* Make the equals button wider */
+}
+
+/* Special buttons styling */
+#btnDot {
+    background-color: #b5838d;
+}
+
+/* Hover effect */
+button:hover {
+    background-color: #666;
+}

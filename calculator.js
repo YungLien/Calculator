@@ -37,8 +37,8 @@ function operate(firstnum, operator, secondnum) {
 
 // Variables to store input values and operator
 let displayValue = ''; // Current input value
-let firstOperand = null; // First operand
-let currentOperator = null; // Current operator
+let firstOperand = null; // First operand 儲存運算中的第一個數字或操作數
+let currentOperator = null; // Current operator 儲存目前選擇的運算符號
 let fullExpression = ''; // Full expression to be displayed
 
 // Get reference to display element
@@ -73,10 +73,10 @@ const buttons = {
 
 // Event handler for number button clicks
 function handleNumberClick(number) {
-    if (currentOperator && firstOperand !== null) {
+    if (currentOperator && firstOperand !== null) {  // 已輸入第一個數字和運算符號
         displayValue += number;
         fullExpression = `${firstOperand} ${currentOperator} ${displayValue}`;
-    } else {
+    } else { //currentOperator是null
         displayValue += number;
         fullExpression = displayValue;
     }
@@ -85,12 +85,12 @@ function handleNumberClick(number) {
 
 // Event handler for operator button clicks
 function handleOperatorClick(operator) {
-    if (firstOperand === null) {
-        firstOperand = parseFloat(displayValue);
+    if (firstOperand === null) { // 還沒有輸入第一個數字
+        firstOperand = parseFloat(displayValue); //把當前顯示的數字（displayValue）轉換為浮點數並儲存到 firstOperand 中
         currentOperator = operator;
         fullExpression = `${firstOperand} ${currentOperator}`;
-        displayValue = '';
-    } else if (currentOperator) {
+        displayValue = ''; //清空 displayValue。這樣使用者可以開始輸入第二個數字。
+    } else if (currentOperator) { //如果 firstOperand 已經有值，並且 currentOperator 已經設定了
         const result = operate(firstOperand, currentOperator, parseFloat(displayValue));
         firstOperand = result;
         currentOperator = operator;
@@ -102,7 +102,7 @@ function handleOperatorClick(operator) {
 
 // Event handler for the equal button
 function handleEqualClick() {
-    if (firstOperand !== null && currentOperator !== null) {
+    if (firstOperand !== null && currentOperator !== null) { //firstOperand) 和運算符號 (currentOperator)。如果兩者都不為 null，則意味著可以進行計算。
         const result = operate(firstOperand, currentOperator, parseFloat(displayValue));
         displayValue = String(result);
         fullExpression = displayValue;
@@ -123,7 +123,7 @@ function handleClearClick() {
 
 // Event handler for the dot button to add decimals
 function handleDotClick() {
-    if (!displayValue.includes('.')) {
+    if (!displayValue.includes('.')) { //displayValue 中不包含小數點
         displayValue += '.';
         display.value = fullExpression += '.';
     }
@@ -131,7 +131,7 @@ function handleDotClick() {
 
 // Event handler for the backspace button to delete the last character
 function handleBackspaceClick() {
-    displayValue = displayValue.slice(0, -1);
+    displayValue = displayValue.slice(0, -1); //使用 slice(0, -1) 來刪除 displayValue 字串中的最後一個字符。會從字串的開始位置（0）到倒數第二個位置（-1）
     fullExpression = fullExpression.slice(0, -1);
     display.value = fullExpression;
 }
