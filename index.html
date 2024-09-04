@@ -9,7 +9,9 @@
 
 <body>
     <h1>Calculator</h1>
-    <input type="text">
+    <!-- Added an id to the input field for easier reference in JavaScript -->
+    <input type="text" id="display" readonly>
+    <!-- Number buttons -->
     <button id="btn0">0</button>
     <button id="btn1">1</button>
     <button id="btn2">2</button>
@@ -20,12 +22,16 @@
     <button id="btn7">7</button>
     <button id="btn8">8</button>
     <button id="btn9">9</button>
+    <!-- Operator buttons -->
     <button id="btnadd">+</button>
     <button id="btnSubstract">-</button>
     <button id="btnMultiply">*</button>
     <button id="btnDivide">/</button>
+    <!-- Equal, clear, dot, and backspace buttons -->
     <button id="btnEqual">=</button>
-    <button id="btnClear">clear</button>
+    <button id="btnClear">Clear</button>
+    <button id="btnDot">.</button>
+    <button id="btnBackspace">⌫</button>
 
     <script src="calculator.js"></script>
 </body>

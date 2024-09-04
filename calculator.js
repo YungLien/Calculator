@@ -1,3 +1,4 @@
+// Basic arithmetic operations
 function add(num1, num2) {
     return num1 + num2;
 }
@@ -18,47 +19,60 @@ function divide(num1, num2) {
     return num1 / num2;
 }
 
-const operate = function (firstnum, operator, secondnum) {
-    if (operator === '+') {
-        return add(firstnum, secondnum);
+// Function to operate based on the selected operator
+function operate(firstnum, operator, secondnum) {
+    switch (operator) {
+        case '+':
+            return add(firstnum, secondnum);
+        case '-':
+            return subtract(firstnum, secondnum);
+        case '*':
+            return multiply(firstnum, secondnum);
+        case '/':
+            return divide(firstnum, secondnum);
+        default:
+            return null;
     }
-    if (operator === '-') {
-        return subtract(firstnum, secondnum);
-    }
-    if (operator === '*') {
-        return multiply(firstnum, secondnum);
-    }
-    if (operator === '/') {
-        return divide(firstnum, secondnum);
-    }
-};
+}
 
-let displayValue = ''; // To store current input value
-let firstOperand = null; // To store the first operand
-let currentOperator = null; // To store the current operator
-let fullExpression = ''; // To store the full expression to be displayed
+// Variables to store input values and operator
+let displayValue = ''; // Current input value
+let firstOperand = null; // First operand
+let currentOperator = null; // Current operator
+let fullExpression = ''; // Full expression to be displayed
 
+// Get reference to display element
 const display = document.querySelector('input');
 
-const btn0 = document.querySelector('#btn0');
-const btn1 = document.querySelector('#btn1');
-const btn2 = document.querySelector('#btn2');
-const btn3 = document.querySelector('#btn3');
-const btn4 = document.querySelector('#btn4');
-const btn5 = document.querySelector('#btn5');
-const btn6 = document.querySelector('#btn6');
-const btn7 = document.querySelector('#btn7');
-const btn8 = document.querySelector('#btn8');
-const btn9 = document.querySelector('#btn9');
-const btnadd = document.querySelector('#btnadd');
-const btnSubstract = document.querySelector('#btnSubstract');
-const btnMultiply = document.querySelector('#btnMultiply');
-const btnDivide = document.querySelector('#btnDivide');
-const btnEqual = document.querySelector('#btnEqual');
-const btnClear = document.querySelector('#btnClear');
+// Get references to all buttons
 
-// Number button click event handler
-const handleNumberClick = (number) => {
+const buttons = {
+    numbers: [
+        document.querySelector('#btn0'),
+        document.querySelector('#btn1'),
+        document.querySelector('#btn2'),
+        document.querySelector('#btn3'),
+        document.querySelector('#btn4'),
+        document.querySelector('#btn5'),
+        document.querySelector('#btn6'),
+        document.querySelector('#btn7'),
+        document.querySelector('#btn8'),
+        document.querySelector('#btn9')
+    ],
+    operators: {
+        add: document.querySelector('#btnadd'),
+        subtract: document.querySelector('#btnSubstract'),
+        multiply: document.querySelector('#btnMultiply'),
+        divide: document.querySelector('#btnDivide')
+    },
+    equal: document.querySelector('#btnEqual'),
+    clear: document.querySelector('#btnClear'),
+    dot: document.querySelector('#btnDot'),
+    backspace: document.querySelector('#btnBackspace')
+};
+
+// Event handler for number button clicks
+function handleNumberClick(number) {
     if (currentOperator && firstOperand !== null) {
         displayValue += number;
         fullExpression = `${firstOperand} ${currentOperator} ${displayValue}`;
@@ -67,10 +81,10 @@ const handleNumberClick = (number) => {
         fullExpression = displayValue;
     }
     display.value = fullExpression;
-};
+}
 
-// Operator button click event handler
-const handleOperatorClick = (operator) => {
+// Event handler for operator button clicks
+function handleOperatorClick(operator) {
     if (firstOperand === null) {
         firstOperand = parseFloat(displayValue);
         currentOperator = operator;
@@ -84,10 +98,10 @@ const handleOperatorClick = (operator) => {
         fullExpression = `${result} ${currentOperator}`;
     }
     display.value = fullExpression;
-};
+}
 
-// Equal button click event handler
-const handleEqualClick = () => {
+// Event handler for the equal button
+function handleEqualClick() {
     if (firstOperand !== null && currentOperator !== null) {
         const result = operate(firstOperand, currentOperator, parseFloat(displayValue));
         displayValue = String(result);
@@ -96,33 +110,45 @@ const handleEqualClick = () => {
         firstOperand = null;
         currentOperator = null;
     }
-};
+}
 
-// Clear button click event handler
-const handleClearClick = () => {
+// Event handler for the clear button
+function handleClearClick() {
     displayValue = '';
     firstOperand = null;
     currentOperator = null;
     fullExpression = '';
     display.value = '';
-};
+}
 
-// Bind event listeners
-btn0.addEventListener('click', () => handleNumberClick('0'));
-btn1.addEventListener('click', () => handleNumberClick('1'));
-btn2.addEventListener('click', () => handleNumberClick('2'));
-btn3.addEventListener('click', () => handleNumberClick('3'));
-btn4.addEventListener('click', () => handleNumberClick('4'));
-btn5.addEventListener('click', () => handleNumberClick('5'));
-btn6.addEventListener('click', () => handleNumberClick('6'));
-btn7.addEventListener('click', () => handleNumberClick('7'));
-btn8.addEventListener('click', () => handleNumberClick('8'));
-btn9.addEventListener('click', () => handleNumberClick('9'));
+// Event handler for the dot button to add decimals
+function handleDotClick() {
+    if (!displayValue.includes('.')) {
+        displayValue += '.';
+        display.value = fullExpression += '.';
+    }
+}
 
-btnadd.addEventListener('click', () => handleOperatorClick('+'));
-btnSubstract.addEventListener('click', () => handleOperatorClick('-'));
-btnMultiply.addEventListener('click', () => handleOperatorClick('*'));
-btnDivide.addEventListener('click', () => handleOperatorClick('/'));
+// Event handler for the backspace button to delete the last character
+function handleBackspaceClick() {
+    displayValue = displayValue.slice(0, -1);
+    fullExpression = fullExpression.slice(0, -1);
+    display.value = fullExpression;
+}
 
-btnEqual.addEventListener('click', handleEqualClick);
-btnClear.addEventListener('click', handleClearClick);
+// Bind event listeners for number buttons
+buttons.numbers.forEach((btn, index) => {
+    btn.addEventListener('click', () => handleNumberClick(String(index)));
+});
+
+// Bind event listeners for operator buttons
+buttons.operators.add.addEventListener('click', () => handleOperatorClick('+'));
+buttons.operators.subtract.addEventListener('click', () => handleOperatorClick('-'));
+buttons.operators.multiply.addEventListener('click', () => handleOperatorClick('*'));
+buttons.operators.divide.addEventListener('click', () => handleOperatorClick('/'));
+
+// Bind event listeners for other buttons
+buttons.equal.addEventListener('click', handleEqualClick);
+buttons.clear.addEventListener('click', handleClearClick);
+buttons.dot.addEventListener('click', handleDotClick);
+buttons.backspace.addEventListener('click', handleBackspaceClick);
